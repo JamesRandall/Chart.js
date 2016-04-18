@@ -114,6 +114,7 @@
 				helpers.each(dataset.data,function(dataPoint,index){
 					//Add a new point for each piece of data, passing any required data to draw.
 					datasetObject.bars.push(new this.BarClass({
+						index: index, // added index, is not recalculated when add and remove point are used
 						value : dataPoint,
 						label : data.labels[index],
 						datasetLabel: dataset.label,
@@ -240,6 +241,7 @@
 			helpers.each(valuesArray,function(value,datasetIndex){
 				//Add a new point for each piece of data, passing any required data to draw.
 				this.datasets[datasetIndex].bars.push(new this.BarClass({
+					index: datasetIndex, // added index, is not recalculated when add and remove point are used
 					value : value,
 					label : label,
 					datasetLabel: this.datasets[datasetIndex].label,

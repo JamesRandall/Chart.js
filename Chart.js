@@ -1683,7 +1683,7 @@
 		},
 		calculateY : function(value){
 			var scalingFactor = this.drawingArea() / (this.min - this.max);
-			return this.endPoint - (scalingFactor * (value - this.min));
+			return Math.round(this.endPoint - (scalingFactor * (value - this.min)));
 		},
 		calculateX : function(index){
 			var isRotated = (this.xLabelRotation > 0),
@@ -2285,8 +2285,10 @@
 						bar.restore(['fillColor', 'strokeColor']);
 					});
 					helpers.each(activeBars, function(activeBar){
-						activeBar.fillColor = activeBar.highlightFill;
-						activeBar.strokeColor = activeBar.highlightStroke;
+						if (activeBar) {
+							activeBar.fillColor = activeBar.highlightFill;
+							activeBar.strokeColor = activeBar.highlightStroke;
+						}
 					});
 					this.showTooltip(activeBars);
 				});
@@ -2314,6 +2316,7 @@
 				helpers.each(dataset.data,function(dataPoint,index){
 					//Add a new point for each piece of data, passing any required data to draw.
 					datasetObject.bars.push(new this.BarClass({
+						index: index, // added index, is not recalculated when add and remove point are used
 						value : dataPoint,
 						label : data.labels[index],
 						datasetLabel: dataset.label,
@@ -2440,6 +2443,7 @@
 			helpers.each(valuesArray,function(value,datasetIndex){
 				//Add a new point for each piece of data, passing any required data to draw.
 				this.datasets[datasetIndex].bars.push(new this.BarClass({
+					index: datasetIndex, // added index, is not recalculated when add and remove point are used
 					value : value,
 					label : label,
 					datasetLabel: this.datasets[datasetIndex].label,
@@ -2807,6 +2811,7 @@
 				helpers.each(dataset.data,function(dataPoint,index){
 					//Add a new point for each piece of data, passing any required data to draw.
 					datasetObject.points.push(new this.PointClass({
+						index: index,
 						value : dataPoint,
 						label : data.labels[index],
 						datasetLabel: dataset.label,
@@ -2926,6 +2931,7 @@
 			helpers.each(valuesArray,function(value,datasetIndex){
 				//Add a new point for each piece of data, passing any required data to draw.
 				this.datasets[datasetIndex].points.push(new this.PointClass({
+					index: datasetIndex, // added index, is not recalculated when add and remove point are used
 					value : value,
 					label : label,
 					datasetLabel: this.datasets[datasetIndex].label,

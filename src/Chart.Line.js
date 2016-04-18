@@ -110,6 +110,7 @@
 				helpers.each(dataset.data,function(dataPoint,index){
 					//Add a new point for each piece of data, passing any required data to draw.
 					datasetObject.points.push(new this.PointClass({
+						index: index,
 						value : dataPoint,
 						label : data.labels[index],
 						datasetLabel: dataset.label,
@@ -229,6 +230,7 @@
 			helpers.each(valuesArray,function(value,datasetIndex){
 				//Add a new point for each piece of data, passing any required data to draw.
 				this.datasets[datasetIndex].points.push(new this.PointClass({
+					index: datasetIndex, // added index, is not recalculated when add and remove point are used
 					value : value,
 					label : label,
 					datasetLabel: this.datasets[datasetIndex].label,
